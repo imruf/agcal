@@ -21,6 +21,7 @@ esac done
 
 # Getting Number of Days in A Month
 ndm=$(cal $b_m $b_y | awk 'NF {Days = $NF}; END {print Days}')
+ndmc=$(cal $m $y | awk 'NF {Days = $NF}; END {print Days}')
 
 if [ $b_m -eq $c_m ]; then
     if [ $b_d -le $c_d ]; then
@@ -56,15 +57,61 @@ else
     d=$(( $c_d - $b_d + $ndm ))
 fi
 
-#if [ $c_m -eq $b_m ]; then
-#    if [ $c_d -le $b_d ]; then
-#        m=$(( $c_m - $b_m ))
-#    else
-#        m=$(( 12 - $c_m + $c_m -1 ))
-#    fi
-#fi
+if [ $ndmc -eq 31 ]; then
+    if [ $d -le 29 ]; then
+        dc=$(( $d + 1 ))
+        mc=$m
+        yc=$y
+    else
+        dc=0
+        mc=$(( $m + 1 ))
+        yc=$y
+    fi
+fi
 
+if [ $ndmc -eq 30 ]; then
+    if [ $m -eq 11 ] && [ $d -eq 30 ]; then
+        dc=0
+        mc=0
+        yc=$(( $y + 1 ))
+    elif [ $m -eq 11 ] && [ $d -le 29 ]; then
+        dc=$(( $d + 1 ))
+        mc=$m
+        yc=$y
+    elif [ $m -ne 11 ] && [ $d -le 28 ]; then
+        dc=$(( $d + 1 ))
+        mc=$m
+        yc=$y
+    else
+        dc=0
+        mc=$(( $m + 1 ))
+        yc=$y
+    fi
+fi
 
+if [ $ndmc -eq 28 ]; then
+    if [ $d -le 26 ]; then
+        dc=$(( $d + 1 ))
+        mc=$m
+        yc=$y
+    else
+        dc=0
+        mc=$(( $m + 1 ))
+        yc=$y
+    fi
+fi
+
+if [ $ndmc -eq 29 ]; then
+    if [ $d -le 27 ]; then
+        dc=$(( $d + 1 ))
+        mc=$m
+        yc=$y
+    else
+        dc=0
+        mc=$(( $m + 1 ))
+        yc=$y
+    fi
+fi
 
 printf "Age is: %s Years %s Months %s Days\n" $y $m $d
-
+printf "Completed Age Is: %s Years %s Months %s Days\n" $yc $mc $dc
