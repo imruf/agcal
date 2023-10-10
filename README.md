@@ -8,13 +8,13 @@ A Bash Script To Calculate Age
 agcal -h
 ```
 
-Input Format
+Input Number
 
-Date 1, 2, 3, --- 29, 30, 31
+Date: 1-31
 
-Month 1, 2, --- 11, 12
+Month: 1-12
 
-Year 1900, 2000, 2023
+Year: 4 digit yerar
 
 Between Two Days
 ######
