@@ -8,7 +8,7 @@ while getopts "b:c:h" o; do case "${o}" in
 esac done
 
 [ -z $br_date ] && read -p "Enter Birth Day (dd-mm-yyyy): " br_date
-[ -z $cr_date ] && cr_date=$(date +%-d-%-m-%-Y)
+[ -z $cr_date ] && read -p "Enter Age Date (dd-mm-yyyy): " cr_date && [ -z $cr_date ] && cr_date=$(date +%-d-%-m-%-Y)
 
 b_d=$(echo $br_date | tr '-' '\n' | sed -n "1p" | sed "s/^0//")
 b_m=$(echo $br_date | tr '-' '\n' | sed -n "2p" | sed "s/^0//")
